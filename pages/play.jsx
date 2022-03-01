@@ -2,6 +2,11 @@
 // (used here to get the query parameter for the session id)
 import { useRouter } from "next/router";
 
+// Next.js component that allows putting things
+// in the <head> tag of the document
+// (used here to set the page title)
+import Head from "next/head";
+
 // React Hooks for managing state
 import { useEffect, useState } from "react";
 
@@ -133,6 +138,10 @@ const Play = () => {
 
     return (
         <div className="w-screen h-screen h-screen-ios p-0 m-0 select-none">
+            <Head>
+                <title>Remote Gamepad</title>
+            </Head>
+
             {isMember
                 ? <GamepadPane webSocket={webSocket} />
                 : <StartPane
