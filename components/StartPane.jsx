@@ -1,5 +1,8 @@
+// Import the button component from Chakra UI
 import { Button } from "@chakra-ui/react";
 
+// The component shown when opening the play page
+// that shows a title and a button to join the game session
 const StartPane = ({ errorText, isConnected, onJoinButtonClick, isJoining }) => {
     return (
         <div className="w-full max-h-full h-full pt-32">
@@ -14,10 +17,10 @@ const StartPane = ({ errorText, isConnected, onJoinButtonClick, isJoining }) => 
                     </span>
                     : <Button
                         width="100%"
-                        mx="auto"
-                        maxW="700px"
+                        marginX="auto"
+                        maxWidth="700px"
                         rounded="xl"
-                        py="1.8rem"
+                        paddingY="1.8rem"
                         size="lg"
                         fontSize="1.25rem"
                         backgroundColor="black"
@@ -25,7 +28,7 @@ const StartPane = ({ errorText, isConnected, onJoinButtonClick, isJoining }) => 
                         isDisabled={!isConnected}
                         isLoading={isJoining}
                         colorScheme="blackAlpha"
-                        onClick={() => onJoinButtonClick()}
+                        onClick={onJoinButtonClick}
                     >
                         Join game
                     </Button>

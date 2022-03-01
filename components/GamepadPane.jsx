@@ -1,6 +1,10 @@
+// React Hooks for managing state
 import { useEffect, useState } from "react";
+
+// Import the joystick component
 import { Joystick } from "react-joystick-component";
 
+// Import the components from other files
 import GamepadButton from "./GamepadButton";
 import ShoulderButton from "./ShoulderButton";
 
@@ -8,28 +12,36 @@ import ShoulderButton from "./ShoulderButton";
 // that can be sent from or to the backend
 import actions from "../misc/actions.json";
 
+// The component shown when the client is a member
+// of a game session, displaying a gamepad
+// and sending button presses and joystick movements
+// to the backend
 const GamepadPane = ({ webSocket }) => {
+    // Stores whether the device is currently in landscape mode
+    // (the gamepad is only shown when the device is in landscape mode
+    // because in portrait mode it doesn't make sense and would look weird)
     const [isLandscape, setLandscape] = useState(false);
 
+    // If the window object exists
+    // (aka run only on the client and not server-side)
     if (typeof window !== "undefined") {
+        // Run when the document has fully loaded with the
+        // window object
         useEffect(() => {
+            // When the window is resized, e.g. when the device is rotated,
+            // re-check and store the new device orientation
             window.onresize = () => {
                 setLandscape(window.innerWidth > window.innerHeight);
             }
 
+            // Check and store the current device orientation
             setLandscape(window.innerWidth > window.innerHeight);          
         }, [window]);
     }
 
-    if (typeof document !== "undefined") {
-        useEffect(() => {
-            
-        }, [document.getElementById('body')]);
-    }
-
+    // Handle a button having been pressed or released
+    // and send the event to the backend
     const onButtonStateChanged = (type, value) => {
-        console.log(`Button (${type}) changed to value: ${value}`);
-
         webSocket.send(JSON.stringify({
             action: actions.outgoing.doInput,
             inputType: type,
@@ -37,11 +49,16 @@ const GamepadPane = ({ webSocket }) => {
         }));
     }
 
+    // Handle the joystick having moved
+    // and send the event to the backend
     const onJoystickMoved = (event) => {
+        // The joystick component reports the joystick
+        // position in percent and since the whole joystick is 100%,
+        // every side has 50% available => divide by 50
+        // and also round to 3 decimal places because
+        // more precision is really not needed
         const positionX = (event.x / 50).toFixed(3);
         const positionY = (event.y / 50).toFixed(3);
-
-        console.log(`Joystick moved to X: ${positionX} and Y: ${positionY}`);
 
         webSocket.send(JSON.stringify({
             action: actions.outgoing.doInput,
