@@ -8,4 +8,8 @@
 - [React Joystick Component](https://github.com/elmarti/react-joystick-component) provides the joystick component
 - [Tailwind Plugin for correct full height on iOS](https://github.com/RVxLab/tailwind-plugin-ios-full-height) makes sizing a component to full height on iOS safari easily possible via Tailwind (the iOS viewport is bigger than it looks because of the bottom and top bar so normal full-height doesn't work correctly)
 
+## Developing
+- Run `npm install` to install the required dependencies
+- Run `npm run dev` to start a local web server to test the website
+
 Hosted on [Vercel](https://vercel.com/)
