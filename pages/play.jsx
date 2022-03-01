@@ -28,7 +28,7 @@ const Index = () => {
     useEffect(() => {
         if (webSocket || !(typeof window)) { return; }
 
-        const socket = new WebSocket("ws://192.168.4.20:4000");
+        const socket = new WebSocket("wss://backend.gamepad.cloud");
 
         socket.onopen = () => {
             setWebSocketConnected(true);
