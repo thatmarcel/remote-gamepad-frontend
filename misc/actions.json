@@ -1,0 +1,19 @@
+{
+    "incoming": {
+        "gameSessionCreationResult": "game-session-creation-result",
+        "gameSessionJoinRequest": "game-session-join-request",
+        "gameSessionJoinRequestResult": "game-session-join-request-result",
+        "gameSessionJoinRequestResponseResult": "game-session-join-request-response-result",
+        "gameSessionJoined": "game-session-joined",
+        "joinRequestDenied": "join-request-denied",
+        "inputReceived": "input-received",
+        "gameSessionClosed": "game-session-closed",
+        "memberDisconnected": "member-disconnected"
+    },
+    "outgoing": {
+        "createGameSession": "create-game-session",
+        "joinGameSession": "join-game-session",
+        "gameSessionJoinRequestResponse": "game-session-join-request-response",
+        "doInput": "do-input"
+    }
+}
