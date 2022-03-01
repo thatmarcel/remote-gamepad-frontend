@@ -1,5 +1,5 @@
 # Remote Gamepad
-**Frontend**
+**Website enabling the use of a smartphone as a gamepad (Frontend)**
 
 ## Dependencies
 - This project is built with [Next.js](https://nextjs.org/) which is based on [React](https://reactjs.org) and also has things like server-side page generation
