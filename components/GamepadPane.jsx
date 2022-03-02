@@ -11,6 +11,7 @@ import ShoulderButton from "./ShoulderButton";
 // List of the actions and their identifiers
 // that can be sent from or to the backend
 import actions from "../misc/actions.json";
+import MenuButton from "./MenuButton";
 
 // The component shown when the client is a member
 // of a game session, displaying a gamepad
@@ -80,6 +81,9 @@ const GamepadPane = ({ webSocket }) => {
                     <div className="absolute top-8 left-0 w-full px-8">
                         <ShoulderButton type="LB" onStateChanged={onButtonStateChanged} />
                         <ShoulderButton type="RB" className="float-right" onStateChanged={onButtonStateChanged} />
+                    </div>
+                    <div className="absolute top-0 left-0 w-full h-full flex">
+                        <MenuButton className="mx-auto mt-16" onStateChanged={onButtonStateChanged} />
                     </div>
                     <div className="absolute bottom-20 left-36">
                         <Joystick
