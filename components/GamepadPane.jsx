@@ -91,6 +91,7 @@ const GamepadPane = ({ webSocket }) => {
                             stickColor="rgb(120, 120, 120)"
                             throttle={200}
                             move={onJoystickMoved}
+                            stop={() => onJoystickMoved({ x: 0, y: 0 })}
                         />
                     </div>
                     <div className="absolute bottom-12 right-24">
