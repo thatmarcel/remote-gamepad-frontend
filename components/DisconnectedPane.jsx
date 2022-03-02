@@ -1,3 +1,8 @@
+// Import the image components from other files
+// that might be displayed
+import FinishFlagImage from "./FinishFlagImage";
+import WarningIconImage from "./WarningIconImage";
+
 // The component shown when the client was disconnected
 // or the game has ended
 const DisconnectedPane = ({ hasGameSessionEnded, hasConnectionError }) => {
@@ -9,10 +14,10 @@ const DisconnectedPane = ({ hasGameSessionEnded, hasConnectionError }) => {
                 }
             `}</style>
             <div className="w-full my-auto">
-                <img
-                    className="w-16 h-16 mb-8 mx-auto"
-                    src={hasGameSessionEnded ? "/finish-flag.svg" : "/warning-icon.svg"}
-                />
+                {hasGameSessionEnded
+                    ? <FinishFlagImage className="w-16 h-16 mb-8 mx-auto" />
+                    : <WarningIconImage className="w-16 h-16 mb-8 mx-auto" />
+                }
 
                 <span className="font-bold text-3xl mx-auto text-white">
                     {hasGameSessionEnded

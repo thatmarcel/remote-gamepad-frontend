@@ -179,9 +179,6 @@ const Play = () => {
                 <title>Remote Gamepad</title>
             </Head>
 
-            {/* Preload warning icon so it can be shown after the internet connection has been lost */}
-            <img src="/warning-icon.svg" className="w-0 h-0" />
-
             {hasDisconnected
                 ? <DisconnectedPane hasGameSessionEnded={hasGameSessionEnded} hasConnectionError={hasConnectionError} />
                 : (isMember
