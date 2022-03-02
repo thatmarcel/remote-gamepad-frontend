@@ -82,8 +82,8 @@ const GamepadPane = ({ webSocket }) => {
                         <ShoulderButton type="LB" onStateChanged={onButtonStateChanged} />
                         <ShoulderButton type="RB" className="float-right" onStateChanged={onButtonStateChanged} />
                     </div>
-                    <div className="absolute top-0 left-0 w-full h-full flex">
-                        <MenuButton className="mx-auto mt-16" onStateChanged={onButtonStateChanged} />
+                    <div className="absolute top-0 left-0 w-full h-full flex pointer-events-none">
+                        <MenuButton className="mx-auto mt-16 pointer-events-auto" onStateChanged={onButtonStateChanged} />
                     </div>
                     <div className="absolute bottom-20 left-36">
                         <Joystick

@@ -29,7 +29,7 @@ const MenuButton = ({ className, onStateChanged }) => {
                 onStateChanged(type, false);
             }}
         >
-            <img src="/dots.png" className="w-6 h-6 mx-auto opacity-60" />
+            <img src="/dots.png" className="w-6 h-6 mx-auto opacity-60 pointer-events-none" />
         </button>
     )
 }
