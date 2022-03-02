@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 // Import the components from other files
 import GamepadPane from "../components/GamepadPane";
 import StartPane from "../components/StartPane";
+import DisconnectedPane from "../components/DisconnectedPane";
 
 // List of the actions and their identifiers
 // that can be sent from or to the backend
@@ -38,6 +39,16 @@ const Play = () => {
     // Stores whether the client is an active
     // member of a game session
     const [isMember, setMember] = useState(false);
+
+    // Stores whether the client has been disconnected from
+    // a game session
+    const [hasDisconnected, setDisconnected] = useState(false);
+
+    // Stores whether an error has occurred in the WebSocket connection
+    const [hasConnectionError, setConnectionError] = useState(false);
+
+    // Stores whether the game session has ended / been closed
+    const [hasGameSessionEnded, setGameSessionEnded] = useState(false);
 
     // The error that should be displayed
     // (hides the join button if set)
@@ -123,12 +134,38 @@ const Play = () => {
 
                     break;
                 }
+                // When the game session was closed
+                // (the host has probably lost connection
+                // or closed the game)
+                case actions.incoming.gameSessionClosed: {
+                    // Store that the game session was closed and has ended
+                    // so the correct text can be displayed
+                    setGameSessionEnded(true);
+
+                    // Disconnect (close the WebSocket connection)
+                    socket.close();
+
+                    break;
+                }
                 // When a different type of message has been received,
                 // ignore it
                 default:
                     break;
             }
         };
+
+        // When the WebSocket connection was closed,
+        // let the user know about the disconnect
+        socket.onclose = () => {
+            setDisconnected(true);
+        }
+
+        // When the WebSocket connection encountered an error,
+        // let the user know about that
+        socket.onerror = () => {
+            setDisconnected(true);
+            setConnectionError(true);
+        }
 
         // Store the socket to allow
         // messages to be sent from outside
@@ -142,28 +179,31 @@ const Play = () => {
                 <title>Remote Gamepad</title>
             </Head>
 
-            {isMember
-                ? <GamepadPane webSocket={webSocket} />
-                : <StartPane
-                    errorText={errorText}
-                    isConnected={isWebSocketConnected}
-                    isJoining={isJoining}
-                    onJoinButtonClick={() => {
-                        // Show the loading indicator
-                        setJoining(true);
+            {hasDisconnected
+                ? <DisconnectedPane hasGameSessionEnded={hasGameSessionEnded} hasConnectionError={hasConnectionError} />
+                : (isMember
+                    ? <GamepadPane webSocket={webSocket} />
+                    : <StartPane
+                        errorText={errorText}
+                        isConnected={isWebSocketConnected}
+                        isJoining={isJoining}
+                        onJoinButtonClick={() => {
+                            // Show the loading indicator
+                            setJoining(true);
 
-                        // Send the join request after 1 second
-                        // (the delay makes it so the loading spinner
-                        // is shown for more than a few milliseconds
-                        // which looks better)
-                        setTimeout(() => {
-                            webSocket.send(JSON.stringify({
-                                action: actions.outgoing.joinGameSession,
-                                gameSessionId: sessionId
-                            }));
-                        }, 1000);
-                    }}
-                />
+                            // Send the join request after 1 second
+                            // (the delay makes it so the loading spinner
+                            // is shown for more than a few milliseconds
+                            // which looks better)
+                            setTimeout(() => {
+                                webSocket.send(JSON.stringify({
+                                    action: actions.outgoing.joinGameSession,
+                                    gameSessionId: sessionId
+                                }));
+                            }, 1000);
+                        }}
+                    />
+                )
             }
         </div>
     )

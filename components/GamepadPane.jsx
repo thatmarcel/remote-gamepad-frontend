@@ -117,7 +117,7 @@ const GamepadPane = ({ webSocket }) => {
                     </div>
                 </div>
                 : <div className="h-screen h-screen-ios w-full text-center px-16 flex">
-                    <span className="font-bold text-3xl my-auto text-white">
+                    <span className="font-bold text-3xl mx-auto my-auto text-white">
                         Rotate your phone to play
                     </span>
                 </div>
