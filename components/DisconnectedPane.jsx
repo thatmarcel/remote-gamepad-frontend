@@ -1,10 +1,3 @@
-// Next.js component that handles image loading and display
-import Image from "next/image";
-
-// Import the images that might be displayed
-import finishFlagImage from "../public/finish-flag.svg";
-import warningIconImage from "../public/warning-icon.svg";
-
 // The component shown when the client was disconnected
 // or the game has ended
 const DisconnectedPane = ({ hasGameSessionEnded, hasConnectionError }) => {
@@ -16,9 +9,10 @@ const DisconnectedPane = ({ hasGameSessionEnded, hasConnectionError }) => {
                 }
             `}</style>
             <div className="w-full my-auto">
-                <div className="w-16 h-16 mb-8 mx-auto">
-                    <Image src={hasGameSessionEnded ? finishFlagImage : warningIconImage} />
-                </div>
+                <img
+                    className="w-16 h-16 mb-8 mx-auto"
+                    src={hasGameSessionEnded ? "/finish-flag.svg" : "/warning-icon.svg"}
+                />
 
                 <span className="font-bold text-3xl mx-auto text-white">
                     {hasGameSessionEnded
