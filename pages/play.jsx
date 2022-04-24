@@ -193,8 +193,6 @@ const Play = () => {
         socket.onerror = () => {
             setDisconnected(true);
             setConnectionError(true);
-
-            Sentry.captureException(new Error("WebSocket Error"));
         }
 
         // Store the socket to allow
