@@ -72,6 +72,25 @@ const Play = () => {
         setErrorText(null);
     }
 
+    // Send a ping message to the server and setup a timer to send
+    // another one in 3 seconds
+    // (needed so the connection is kept alive)
+    const sendPing = (socket) => {
+        if (!socket || socket.readyState != 1 /* 1 => OPEN */) {
+            if (socket && socket.readyState == 0 /* 0 => CONNECTING */) {
+                setTimeout(() => sendPing(socket), 3000);
+            }
+
+            return;
+        }
+        
+        socket.send(JSON.stringify({
+            action: actions.outgoing.ping
+        }));
+
+        setTimeout(() => sendPing(socket), 3000);
+    }
+
     // Run when the document has loaded
     useEffect(() => {
         // If the socket has already been created or the
@@ -87,6 +106,8 @@ const Play = () => {
             // Store that the connection has been established
             // (so the join button gets enabled)
             setWebSocketConnected(true);
+
+            sendPing(socket);
         }
 
         // When a message has been received

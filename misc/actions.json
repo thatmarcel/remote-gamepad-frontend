@@ -8,12 +8,14 @@
         "joinRequestDenied": "join-request-denied",
         "inputReceived": "input-received",
         "gameSessionClosed": "game-session-closed",
-        "memberDisconnected": "member-disconnected"
+        "memberDisconnected": "member-disconnected",
+        "pong": "pong"
     },
     "outgoing": {
         "createGameSession": "create-game-session",
         "joinGameSession": "join-game-session",
         "gameSessionJoinRequestResponse": "game-session-join-request-response",
-        "doInput": "do-input"
+        "doInput": "do-input",
+        "ping": "ping"
     }
 }
