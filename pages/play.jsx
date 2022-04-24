@@ -7,6 +7,9 @@ import { useRouter } from "next/router";
 // (used here to set the page title)
 import Head from "next/head";
 
+// Error reporting service
+import * as Sentry from "@sentry/nextjs";
+
 // React Hooks for managing state
 import { useEffect, useState } from "react";
 
@@ -156,8 +159,12 @@ const Play = () => {
 
         // When the WebSocket connection was closed,
         // let the user know about the disconnect
-        socket.onclose = () => {
+        socket.onclose = event => {
             setDisconnected(true);
+
+            if (!event.wasClean) {
+                Sentry.captureException(new Error(`WebSocket Closed (non-clean, Code: ${event.code}, Reason: ${event.reason})`));
+            }
         }
 
         // When the WebSocket connection encountered an error,
@@ -165,6 +172,8 @@ const Play = () => {
         socket.onerror = () => {
             setDisconnected(true);
             setConnectionError(true);
+
+            Sentry.captureException(new Error("WebSocket Error"));
         }
 
         // Store the socket to allow
