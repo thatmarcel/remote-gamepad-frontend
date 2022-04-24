@@ -163,7 +163,7 @@ const Play = () => {
             setDisconnected(true);
 
             if (!event.wasClean) {
-                Sentry.captureException(new Error(`WebSocket Closed (non-clean, Code: ${event.code}, Reason: ${event.reason})`));
+                Sentry.captureException(new Error(`WebSocket Closed (non-clean, Code: ${event.code})`));
             }
         }
 
